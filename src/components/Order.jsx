@@ -1,4 +1,5 @@
-import React from "react";
+// import React from "react";
+import PropTypes from "prop-types";
 
 const Order = ({ pizza }) => {
   return (
@@ -12,4 +13,11 @@ const Order = ({ pizza }) => {
   );
 };
 
+// PropTypes validation
+Order.propTypes = {
+  pizza: PropTypes.shape({
+    base: PropTypes.string.isRequired, // Ensure base is a required string
+    toppings: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensure toppings is an array of strings and required
+  }).isRequired, // Ensure pizza object is required
+};
 export default Order;

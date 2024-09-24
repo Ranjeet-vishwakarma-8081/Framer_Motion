@@ -1,5 +1,6 @@
-import React from "react";
+// import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Base = ({ addBase, pizza }) => {
   const bases = ["Classic", "Thin & Crispy", "Thick Crust"];
@@ -27,6 +28,14 @@ const Base = ({ addBase, pizza }) => {
       )}
     </div>
   );
+};
+
+// PropTypes validation
+Base.propTypes = {
+  addBase: PropTypes.func.isRequired, // Ensuring addBase is a function and required
+  pizza: PropTypes.shape({
+    base: PropTypes.string, // Ensuring pizza object has a 'base' string property
+  }).isRequired,
 };
 
 export default Base;

@@ -1,5 +1,6 @@
-import React from "react";
+// import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Toppings = ({ addTopping, pizza }) => {
   let toppings = [
@@ -30,6 +31,15 @@ const Toppings = ({ addTopping, pizza }) => {
       </Link>
     </div>
   );
+};
+
+// PropTypes validation
+Toppings.propTypes = {
+  pizza: PropTypes.shape({
+    base: PropTypes.string, // Ensuring pizza object has a 'base' string property
+    toppings: PropTypes.arrayOf(PropTypes.string), // 'toppings' is an array of strings
+  }).isRequired,
+  addTopping: PropTypes.func, // Ensuring addBase is a function and required
 };
 
 export default Toppings;

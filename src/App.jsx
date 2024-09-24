@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import Base from "./components/Base";
 import Home from "./components/Home";
+import Base from "./components/Base";
+import Toppings from "./components/Toppings";
 import Order from "./components/Order";
+
 const App = () => {
   const [pizza, setPizza] = useState({ base: "", toppings: [] });
 
@@ -24,28 +26,27 @@ const App = () => {
       toppings: newToppings,
     });
   };
-  return;
-  <>
-    <Header />
+  return (
+    <>
+      <Header />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-    <Switch>
-      <Route path="/">
-        <Home />
-      </Route>
+          <Route
+            path="/base"
+            element={<Base addBase={addBase} pizza={pizza} />}
+          />
 
-      <Route path="/base">
-        <Base addBase={addBase} pizza={pizza} />
-      </Route>
-
-      <Route path="/base">
-        <Base addBase={addTopping} pizza={pizza} />
-      </Route>
-
-      <Route path="/order">
-        <Order pizza={pizza} />
-      </Route>
-    </Switch>
-  </>;
+          <Route
+            path="/toppings"
+            element={<Toppings addTopping={addTopping} pizza={pizza} />}
+          />
+          <Route path="/order" element={<Order pizza={pizza} />} />
+        </Routes>
+      </Router>
+    </>
+  );
 };
 
 export default App;
