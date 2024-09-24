@@ -4,7 +4,7 @@ const Header = () => {
   return (
     // <h1>Hello</h1>
     <header>
-      {/* <div className="logo">
+      <div className="logo">
         <svg
           className="pizza-svg"
           xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ const Header = () => {
           />
           <path fill="none" d="M50 30 L50 -10 C50 -10 90 -10 90 30 Z" />
         </svg>
-      </div> */}
+      </div>
       <div className="title">
         <h1>Pizza Joint</h1>
       </div>
