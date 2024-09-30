@@ -1,6 +1,6 @@
-// import React from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 const containerVariants = {
   hidden: {
     opacity: 0,
@@ -15,7 +15,7 @@ const containerVariants = {
       damping: 8,
       stiffness: 120,
       when: "beforeChildren",
-      staggerChildren: 2, 
+      staggerChildren: 0.5,
     },
   },
 };
@@ -28,7 +28,16 @@ const childVariants = {
   },
 };
 
-const Order = ({ pizza }) => {
+const Order = ({ pizza, setShowModal }) => {
+  useEffect(() => {
+    setTimeout(() => {
+      setShowModal(true);
+    }, 5000);
+  }, [setShowModal]);
+  const [showTitle, setShowTitle] = useState(true);
+  setTimeout(() => {
+    setShowTitle(false);
+  }, 4000);
   return (
     <motion.div
       className="container order"
@@ -36,7 +45,13 @@ const Order = ({ pizza }) => {
       initial="hidden"
       animate="visible"
     >
-      <h2>Thank you for your order :)</h2>
+      <AnimatePresence>
+        {showTitle && (
+          <motion.h2 variants={childVariants} exit={{ y: "-100vw" }}>
+            Thank you for your order :)
+          </motion.h2>
+        )}
+      </AnimatePresence>
       <motion.p variants={childVariants}>
         You ordered a {pizza.base} pizza with:
       </motion.p>
@@ -55,5 +70,6 @@ Order.propTypes = {
     base: PropTypes.string.isRequired, // Ensure base is a required string
     toppings: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensure toppings is an array of strings and required
   }).isRequired, // Ensure pizza object is required
+  setShowModal: PropTypes.func.isRequired,
 };
 export default Order;

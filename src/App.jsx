@@ -5,10 +5,12 @@ import Home from "./components/Home";
 import Base from "./components/Base";
 import Toppings from "./components/Toppings";
 import Order from "./components/Order";
+import Modal from "./components/Modal";
+import { AnimatePresence } from "framer-motion";
 
 const App = () => {
   const [pizza, setPizza] = useState({ base: "", toppings: [] });
-
+  const [showModal, setShowModal] = useState(true);
   const addBase = (base) => {
     setPizza({
       ...pizza,
@@ -28,23 +30,31 @@ const App = () => {
   };
   return (
     <>
+      {/* <Modal {...{ showModal, setShowModal }} /> */}
       <Header />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
+      <Modal showModal={showModal} setShowModal={setShowModal} />
 
-          <Route
-            path="/base"
-            element={<Base addBase={addBase} pizza={pizza} />}
-          />
+      <AnimatePresence mode="wait">
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
 
-          <Route
-            path="/toppings"
-            element={<Toppings addTopping={addTopping} pizza={pizza} />}
-          />
-          <Route path="/order" element={<Order pizza={pizza} />} />
-        </Routes>
-      </Router>
+            <Route
+              path="/base"
+              element={<Base addBase={addBase} pizza={pizza} />}
+            />
+
+            <Route
+              path="/toppings"
+              element={<Toppings addTopping={addTopping} pizza={pizza} />}
+            />
+            <Route
+              path="/order"
+              element={<Order pizza={pizza} setShowModal={setShowModal} />}
+            />
+          </Routes>
+        </Router>
+      </AnimatePresence>
     </>
   );
 };
